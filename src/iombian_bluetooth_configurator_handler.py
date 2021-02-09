@@ -28,6 +28,7 @@ class IoMBianBluetoothConfiguratorHandler():
             self.stop()
             return
         logger.debug("Starting Bluetooth Configurator Handler")
+        self.name = self.file_config_handler.execute_command("get_device_id")
         self.ble = pybleno.Bleno()
         self.ble.on('stateChange', self.on_state_change)
         self.ble.on('advertisingStart', self.on_advertising_start)
