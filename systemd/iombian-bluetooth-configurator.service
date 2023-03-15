@@ -11,6 +11,7 @@ User=root
 Restart=always
 RestartSec=5
 ExecStartPre=/bin/sleep 5
+TimeoutStopSec=5
 
 WorkingDirectory=/opt/iombian-bluetooth-configurator
 ExecStart=/opt/iombian-bluetooth-configurator/venv/bin/python /opt/iombian-bluetooth-configurator/main.py
