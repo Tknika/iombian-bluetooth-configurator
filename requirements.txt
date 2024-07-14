@@ -1,3 +1,2 @@
-# Temporary fix until a new release of pybleno is available
-git+https://github.com/Adam-Langley/pybleno.git@master
+pybleno==0.11
 pyzmq==25.1.1
