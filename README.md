@@ -41,9 +41,45 @@ This service allows to configure the IoMBian device using Bluetooth Low Energy (
 
 > ```sudo systemctl enable ${PROJECT_NAME}.service && sudo systemctl start ${PROJECT_NAME}.service```
 
+## Docker
+
+To build the docker image, from the cloned repository, execute the docker build command in the same level as the Dockerfile.
+In this case replace the variables like `${IMAGE_NAME}` with a value.
+
+`docker build -t ${IMAGE_NAME}:${IMAGE_VERSION}`
+
+For example:
+`docker build -t iombian-bluetooth-configurator:latest .`
+
+After building the image, execute it with docker run.
+
+`docker run --name ${CONTAINER_NAME} --privileged --network=host -e CONFIG_PORT=5555 -e LOG_LEVEL=DEBUG iombian-bluetooth-configurator:latest`
+
+- **--name** is used to define the name of the created container.
+
+- **-privileged** is for granting privileges to the docker container.
+This is needed because iombian-bluetooth-configurator needs access to the bluetooth hardware.
+
+- **--rm** can be used to delete the container when it stops.
+This parameter is optional.
+
+- **-d** is used to run the container detached.
+This way the container will run in the background.
+This parameter is optional.
+
+- **--networt=host** is used to share the network between the container and the host.
+In this case it's used to give the container access to the bluetooth hardware.
+
+- **-e** can be used to define the environment variables:
+    - CONFIG_PORT: The port where the service needs to connect to send the configuration values.
+    Default port is 5555.
+    - LOG_LEVEL: define the log level for the python logger.
+    This can be NOTSET, DEBUG, INFO, WARNING, ERROR or CRITICAL.
+    Default value is INFO.
+
 ## Author
 
-(c) 2021 [Aitor Iturrioz Rodríguez](https://github.com/bodiroga)
+(c) 2024 [Aitor Iturrioz Rodríguez](https://github.com/bodiroga)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
